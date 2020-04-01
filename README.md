@@ -1,4 +1,4 @@
-# <<webGL编程指南>>示例，结合react + typescript + umijs3.x
+# 《webGL编程指南》示例，结合react + typescript + umijs3.x
 
 ## Getting Started
 
