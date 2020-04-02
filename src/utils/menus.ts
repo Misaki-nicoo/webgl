@@ -20,6 +20,7 @@ export const menus: IMenu[] = [
       { path: '/chapter3/multiPoints', title: '绘制多个点' },
       { path: '/chapter3/helloTriangle', title: '绘制三角形' },
       { path: '/chapter3/translatedTriangle', title: '平移三角形' },
+      { path: '/chapter3/rotatedTriangle', title: '旋转三角形' },
     ],
   },
 ];
