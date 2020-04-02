@@ -13,7 +13,13 @@ export const menus: IMenu[] = [
       { path: '/chapter2/coloredPoint', title: '鼠标画点并改变颜色' },
     ],
   },
-  { path: 'chapter3', title: '绘制和变换三角形', children: [
+  {
+    path: 'chapter3',
+    title: '绘制和变换三角形',
+    children: [
       { path: '/chapter3/multiPoints', title: '绘制多个点' },
-    ] },
+      { path: '/chapter3/helloTriangle', title: '绘制三角形' },
+      { path: '/chapter3/translatedTriangle', title: '变换三角形' },
+    ],
+  },
 ];
