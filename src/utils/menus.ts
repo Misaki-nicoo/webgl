@@ -28,6 +28,8 @@ export const menus: IMenu[] = [
     title: '高级变换与动画基础',
     children: [
       { path: '/chapter4/rotatedTriangle_Matrix4', title: '使用矩阵函数变换三角形' },
+      { path: '/chapter4/rotatedTranslatedTriangle', title: '使用矩阵函数平移后旋转三角形' },
+      { path: '/chapter4/rotatingTriangle', title: '动画基础 - 旋转三角形' },
     ],
   },
 ];
