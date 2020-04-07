@@ -32,4 +32,14 @@ export const menus: IMenu[] = [
       { path: '/chapter4/rotatingTriangle', title: '动画基础 - 旋转三角形' },
     ],
   },
+  {
+    path: '/chapter5',
+    title: '颜色与纹理',
+    children: [
+      { path: '/chapter5/multiAttributeSize', title: '不同尺寸的点' },
+      { path: '/chapter5/multiAttributeSize_interleaved', title: '将非坐标数据传入顶点着色器' },
+      { path: '/chapter5/multiAttributeColor', title: '修改颜色 -> 彩色三角形' },
+      { path: '/chapter5/triangle_FragColor', title: '计算三角形颜色' },
+    ],
+  },
 ];

@@ -1,0 +1,105 @@
+import React, { useEffect } from 'react';
+import { initShaders } from '@/utils/webglUtils';
+
+export default function() {
+  const id = 'multiAttributeColor';
+
+  useEffect(() => {
+    const VSHADER_SOURCE = `
+      attribute vec4 a_Position;
+      attribute vec4 a_Color;
+      varying vec4 v_Color;
+
+      void main() {
+        gl_Position = a_Position;
+        gl_PointSize = 10.0;
+        v_Color = a_Color;
+      }
+    `;
+    const FSHADER_SOURCE = `
+      precision mediump float;
+      varying vec4 v_Color;
+
+      void main() {
+        gl_FragColor = v_Color;
+      }
+    `;
+    const canvas = document.getElementById(id);
+    if (!canvas) {
+      console.log("can't found element canvas");
+      return;
+    }
+    // @ts-ignore
+    const gl = canvas.getContext('webgl');
+    if (!initShaders(gl, VSHADER_SOURCE, FSHADER_SOURCE)) {
+      console.log('Failed to initialize shaders.');
+      return;
+    }
+
+    const n = initVertexBuffer(gl);
+    if (n < 0) {
+      return;
+    }
+
+    gl.clearColor(0, 0, 0, 1);
+    gl.clear(gl.COLOR_BUFFER_BIT);
+
+    // gl.drawArrays(gl.POINTS, 0, n);
+    gl.drawArrays(gl.TRIANGLES, 0, n);
+    // gl.drawArrays(gl.LINE_STRIP, 0, n);
+    // gl.drawArrays(gl.LINE_LOOP, 0, n);
+  });
+
+  function initVertexBuffer(gl: WebGL2RenderingContext): number {
+    const verticesSizes = new Float32Array([
+      0.0,
+      0.5,
+      1.0,
+      0.0,
+      0.0,
+      -0.5,
+      -0.5,
+      0.0,
+      1.0,
+      0.0,
+      0.5,
+      -0.5,
+      0.0,
+      0.0,
+      1.0,
+    ]);
+    const n = 3;
+
+    const vertexBuffer = gl.createBuffer();
+
+    if (!vertexBuffer) {
+      console.log('Failed to create Buffer.');
+      return -1;
+    }
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, verticesSizes, gl.STATIC_DRAW);
+
+    const FSIZE = verticesSizes.BYTES_PER_ELEMENT;
+    // @ts-ignore
+    const a_Position = gl.getAttribLocation(gl.program, 'a_Position');
+    if (a_Position < 0) {
+      console.log('Failed to get a_Position location.');
+      return -1;
+    }
+    gl.vertexAttribPointer(a_Position, 2, gl.FLOAT, false, FSIZE * 5, 0);
+    gl.enableVertexAttribArray(a_Position);
+
+    // @ts-ignore
+    const a_Color = gl.getAttribLocation(gl.program, 'a_Color');
+    if (a_Color < 0) {
+      console.log('Failed to get a_Color location.');
+      return -1;
+    }
+    gl.vertexAttribPointer(a_Color, 3, gl.FLOAT, false, FSIZE * 5, FSIZE * 2);
+    gl.enableVertexAttribArray(a_Color);
+
+    return n;
+  }
+  return <canvas id={id} style={{ width: '100%', height: '100%' }} />;
+}
