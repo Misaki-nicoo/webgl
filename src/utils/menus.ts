@@ -40,6 +40,9 @@ export const menus: IMenu[] = [
       { path: '/chapter5/multiAttributeSize_interleaved', title: '将非坐标数据传入顶点着色器' },
       { path: '/chapter5/multiAttributeColor', title: '修改颜色 -> 彩色三角形' },
       { path: '/chapter5/triangle_FragColor', title: '计算三角形颜色' },
+      { path: '/chapter5/texturedQuad', title: '图像纹理' },
+      { path: '/chapter5/texturedQuad_Repeat', title: '图像纹理重复填充' },
+      { path: '/chapter5/multiTexture', title: '使用多幅纹理' },
     ],
   },
 ];

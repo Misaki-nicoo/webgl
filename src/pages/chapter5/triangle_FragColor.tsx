@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { initShaders } from '@/utils/webglUtils';
 
 export default function() {
-  const id = 'multiAttributeColor';
+  const id = 'triangle_FragColor';
 
   useEffect(() => {
     const VSHADER_SOURCE = `
