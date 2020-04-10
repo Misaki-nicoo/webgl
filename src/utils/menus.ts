@@ -55,6 +55,7 @@ export const menus: IMenu[] = [
       { path: '/chapter7/lookAtTrianglesWithKeys_viewVolume', title: '随视点变化的正射投影' },
       { path: '/chapter7/perspectiveView', title: '透视投影的可视空间' },
       { path: '/chapter7/perspectiveView_mvp', title: '平移绘制透视投影' },
+      { path: '/chapter7/helloCubes', title: '立方体' },
     ],
   },
 ];
