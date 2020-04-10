@@ -53,6 +53,7 @@ export const menus: IMenu[] = [
       { path: '/chapter7/lookAtTrianglesWithKeys', title: '利用键盘改变视点' },
       { path: '/chapter7/orthoView', title: '正射投影的可视范围' },
       { path: '/chapter7/lookAtTrianglesWithKeys_viewVolume', title: '随视点变化的正射投影' },
+      { path: '/chapter7/perspectiveView', title: '透视投影的可视空间' },
     ],
   },
 ];
