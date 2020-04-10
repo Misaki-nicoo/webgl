@@ -74,7 +74,10 @@ export default function() {
 
     gl.uniformMatrix4fv(u_MvpMatrix, false, mvpMatrix.elements);
     gl.clearColor(0, 0, 0, 1.0);
-    gl.clear(gl.COLOR_BUFFER_BIT);
+    // gl.clear(gl.COLOR_BUFFER_BIT);
+    // 开启隐藏面消除
+    gl.enable(gl.DEPTH_TEST);
+    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
     gl.drawArrays(gl.TRIANGLES, 0, n);
 
@@ -87,6 +90,10 @@ export default function() {
 
   function initVertexBuffer(gl: WebGL2RenderingContext): number {
     const verticesColors = new Float32Array([
+      0.0, 1.0, 0.0, 0.4, 0.4, 1.0,
+      -0.5, -1.0, 0.0, 0.4, 0.4, 1.0,
+      0.5, -1.0, 0.0, 1.0, 0.4, 0.4,
+
       0, 1.0, -4.0, 0.4, 1.0, 0.4,
       -0.5, -1.0, -4.0, 0.4, 1.0, 0.4,
       0.5, -1.0, -4.0, 1.0, 0.4, 0.4,
@@ -95,9 +102,9 @@ export default function() {
       -0.5, -1.0, -2.0, 0.4, 1.0, 0.4,
       0.5, -1.0, -2.0, 1.0, 0.4, 0.4,
 
-      0.0, 1.0, 0.0, 0.4, 0.4, 1.0,
-      -0.5, -1.0, 0.0, 0.4, 0.4, 1.0,
-      0.5, -1.0, 0.0, 1.0, 0.4, 0.4,
+      // 0.0, 1.0, 0.0, 0.4, 0.4, 1.0,
+      // -0.5, -1.0, 0.0, 0.4, 0.4, 1.0,
+      // 0.5, -1.0, 0.0, 1.0, 0.4, 0.4,
     ]);
     const n = verticesColors.length / 6;
     const VERTICESCOLORS = verticesColors.BYTES_PER_ELEMENT;
