@@ -45,4 +45,13 @@ export const menus: IMenu[] = [
       { path: '/chapter5/multiTexture', title: '使用多幅纹理' },
     ],
   },
+  {
+    path: '/chapter7',
+    title: '进入三维世界',
+    children: [
+      { path: '/chapter7/lookAtTriangles', title: '视点和视线' },
+      { path: '/chapter7/lookAtTrianglesWithKeys', title: '利用键盘改变视点' },
+      { path: '/chapter7/orthoView', title: '可视范围' },
+    ],
+  },
 ];
