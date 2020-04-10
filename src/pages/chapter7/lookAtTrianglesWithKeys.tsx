@@ -58,13 +58,13 @@ export default function() {
 
   function initVertexBuffer(gl: WebGL2RenderingContext): number {
     const verticesColors = new Float32Array([
-      0, 0.5, -0.4, 0.4, 1.0, 0.4,
+      0.0, 0.5, -0.4, 0.4, 1.0, 0.4,
       -0.5, -0.5, -0.4, 0.4, 1.0, 0.4,
       0.5, -0.5, -0.4, 1.0, 0.4, 0.4,
 
       0.5, 0.4, -0.2, 1.0, 0.4, 0.4,
-      -0.5, 0.4, -0.2, 1.0, 0.4, 0.4,
-      0.0, 0.6, -0.2, 1.0, 1.0, 0.4,
+      -0.5, 0.4, -0.2, 1.0, 1.0, 0.4,
+      0, -0.6, -0.2, 1.0, 1.0, 0.4,
 
       0.0, 0.5, 0.0, 0.4, 0.4, 1.0,
       -0.5, -0.5, 0.0, 0.4, 0.4, 1.0,
@@ -90,8 +90,8 @@ export default function() {
       return -1;
     }
 
-    gl.vertexAttribPointer(a_Position, 3, gl.FLOAT, false, VERTICESCOLORS * 3, 0);
-    gl.vertexAttribPointer(a_Color, 3, gl.FLOAT, false, VERTICESCOLORS * 3, VERTICESCOLORS * 2);
+    gl.vertexAttribPointer(a_Position, 3, gl.FLOAT, false, VERTICESCOLORS * 6, 0);
+    gl.vertexAttribPointer(a_Color, 3, gl.FLOAT, false, VERTICESCOLORS * 6, VERTICESCOLORS * 2);
     gl.enableVertexAttribArray(a_Position);
     gl.enableVertexAttribArray(a_Color);
     return n;

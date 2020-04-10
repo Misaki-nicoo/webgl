@@ -51,8 +51,8 @@ export const menus: IMenu[] = [
     children: [
       { path: '/chapter7/lookAtTriangles', title: '视点和视线' },
       { path: '/chapter7/lookAtTrianglesWithKeys', title: '利用键盘改变视点' },
-      { path: '/chapter7/orthoView', title: '可视范围' },
-      { path: '/chapter7/lookAtTrianglesWithKeys_viewVolume', title: '可视范围' },
+      { path: '/chapter7/orthoView', title: '正射投影的可视范围' },
+      { path: '/chapter7/lookAtTrianglesWithKeys_viewVolume', title: '随视点变化的正射投影' },
     ],
   },
 ];
