@@ -51,7 +51,12 @@ export default function() {
     const projMatrix = new Matrix4();
     modelMatrix.setTranslate(0.75, 0.0, 0.0);
     viewMatrix.setLookAt(0.0, 0.0, 5.0, 0.0, 0.0, -100.0, 0.0, 1.0, 0.0);
-    projMatrix.setPerspective(30, canvas.clientWidth/canvas.clientHeight, 1, 100);
+    projMatrix.setPerspective(
+      30,
+      canvas.clientWidth / canvas.clientHeight,
+      1,
+      100,
+    );
 
     gl.clearColor(0, 0, 0, 1.0);
     // 开启隐藏面消除
@@ -64,28 +69,98 @@ export default function() {
     gl.uniformMatrix4fv(u_MvpMatrix, false, mvpMatrix.elements);
 
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-    gl.drawElements(gl.TRIANGLES, n, gl.UNSIGNED_BYTE, 0)
+    gl.drawElements(gl.TRIANGLES, n, gl.UNSIGNED_BYTE, 0);
   }, []);
 
-  function initVertexBuffer(gl: WebGL2RenderingContext): number {
+  function initVertexBuffer(gl: WebGLRenderingContext): number {
     const verticesColors = new Float32Array([
-      1.0, 1.0, 1.0, 1.0, 1.0, 1.0, //v0 white
-      -1.0, 1.0, 1.0, 1.0, 0.0, 1.0, //v1 品红
-      -1.0, -1.0, 1.0, 1.0, 0.0, 0.0, //v2 红色
-      1.0, -1.0, 1.0, 1.0, 1.0, 0.0, //v3 黄色
-      1.0, -1.0, -1.0, 0.0, 1.0, 0.0, //v4 绿色
-      1.0, 1.0, -1.0, 0.0, 1.0, 1.0, //v5 青色
-      -1.0, 1.0, -1.0, 0.0, 0.0, 1.0, //v6 蓝色
-      -1.0, -1.0, -1.0, 0.0, 0.0, 0.0 //v7 黑色
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0, //v0 white
+      -1.0,
+      1.0,
+      1.0,
+      1.0,
+      0.0,
+      1.0, //v1 品红
+      -1.0,
+      -1.0,
+      1.0,
+      1.0,
+      0.0,
+      0.0, //v2 红色
+      1.0,
+      -1.0,
+      1.0,
+      1.0,
+      1.0,
+      0.0, //v3 黄色
+      1.0,
+      -1.0,
+      -1.0,
+      0.0,
+      1.0,
+      0.0, //v4 绿色
+      1.0,
+      1.0,
+      -1.0,
+      0.0,
+      1.0,
+      1.0, //v5 青色
+      -1.0,
+      1.0,
+      -1.0,
+      0.0,
+      0.0,
+      1.0, //v6 蓝色
+      -1.0,
+      -1.0,
+      -1.0,
+      0.0,
+      0.0,
+      0.0, //v7 黑色
     ]);
 
     const indices = new Uint8Array([
-      0, 1, 2, 0, 2, 3, //front
-      0, 3, 4, 0, 4, 5, //right
-      0, 5, 6, 0, 6, 1, //up
-      1, 6, 7, 1, 7, 2, //left
-      7, 4, 3, 7, 3, 2, //bottom
-      4, 7, 6, 4, 6, 5 //behind
+      0,
+      1,
+      2,
+      0,
+      2,
+      3, //front
+      0,
+      3,
+      4,
+      0,
+      4,
+      5, //right
+      0,
+      5,
+      6,
+      0,
+      6,
+      1, //up
+      1,
+      6,
+      7,
+      1,
+      7,
+      2, //left
+      7,
+      4,
+      3,
+      7,
+      3,
+      2, //bottom
+      4,
+      7,
+      6,
+      4,
+      6,
+      5, //behind
     ]);
 
     const VERTICESCOLORS = verticesColors.BYTES_PER_ELEMENT;
@@ -111,8 +186,22 @@ export default function() {
       return -1;
     }
 
-    gl.vertexAttribPointer(a_Position, 3, gl.FLOAT, false, VERTICESCOLORS * 6, 0);
-    gl.vertexAttribPointer(a_Color, 3, gl.FLOAT, false, VERTICESCOLORS * 6, VERTICESCOLORS * 2);
+    gl.vertexAttribPointer(
+      a_Position,
+      3,
+      gl.FLOAT,
+      false,
+      VERTICESCOLORS * 6,
+      0,
+    );
+    gl.vertexAttribPointer(
+      a_Color,
+      3,
+      gl.FLOAT,
+      false,
+      VERTICESCOLORS * 6,
+      VERTICESCOLORS * 2,
+    );
     gl.enableVertexAttribArray(a_Position);
     gl.enableVertexAttribArray(a_Color);
     return indices.length;

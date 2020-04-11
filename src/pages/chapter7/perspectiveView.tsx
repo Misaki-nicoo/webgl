@@ -44,14 +44,19 @@ export default function() {
     const u_ViewMatrix = gl.getUniformLocation(gl.program, 'u_ViewMatrix');
     const u_ProjMatrix = gl.getUniformLocation(gl.program, 'u_ProjMatrix');
     if (!u_ViewMatrix || !u_ProjMatrix) {
-      console.log("Failed to get uniform location.");
+      console.log('Failed to get uniform location.');
       return;
     }
 
     const viewMatrix = new Matrix4();
     const projMatrix = new Matrix4();
     viewMatrix.setLookAt(0.0, 0.0, 5.0, 0.0, 0.0, -100.0, 0.0, 1.0, 0.0);
-    projMatrix.setPerspective(30, canvas.clientWidth/canvas.clientHeight, 1, 100);
+    projMatrix.setPerspective(
+      30,
+      canvas.clientWidth / canvas.clientHeight,
+      1,
+      100,
+    );
 
     gl.uniformMatrix4fv(u_ViewMatrix, false, viewMatrix.elements);
     gl.uniformMatrix4fv(u_ProjMatrix, false, projMatrix.elements);
@@ -62,31 +67,121 @@ export default function() {
     gl.drawArrays(gl.TRIANGLES, 0, n);
   }, []);
 
-  function initVertexBuffer(gl: WebGL2RenderingContext): number {
+  function initVertexBuffer(gl: WebGLRenderingContext): number {
     const verticesColors = new Float32Array([
-      0.75, 1.0, -4.0, 0.4, 1.0, 0.4,
-      0.25, -1.0, -4.0, 0.4, 1.0, 0.4,
-      1.25, -1.0, -4.0, 1.0, 0.4, 0.4,
+      0.75,
+      1.0,
+      -4.0,
+      0.4,
+      1.0,
+      0.4,
+      0.25,
+      -1.0,
+      -4.0,
+      0.4,
+      1.0,
+      0.4,
+      1.25,
+      -1.0,
+      -4.0,
+      1.0,
+      0.4,
+      0.4,
 
-      0.75, 1.0, -2.0, 1.0, 1.0, 0.4,
-      0.25, -1.0, -2.0, 0.4, 1.0, 0.4,
-      1.25, -1.0, -2.0, 1.0, 0.4, 0.4,
+      0.75,
+      1.0,
+      -2.0,
+      1.0,
+      1.0,
+      0.4,
+      0.25,
+      -1.0,
+      -2.0,
+      0.4,
+      1.0,
+      0.4,
+      1.25,
+      -1.0,
+      -2.0,
+      1.0,
+      0.4,
+      0.4,
 
-      0.75, 1.0, 0.0, 0.4, 0.4, 1.0,
-      0.25, -1.0, 0.0, 0.4, 0.4, 1.0,
-      1.25, -1.0, 0.0, 1.0, 0.4, 0.4,
+      0.75,
+      1.0,
+      0.0,
+      0.4,
+      0.4,
+      1.0,
+      0.25,
+      -1.0,
+      0.0,
+      0.4,
+      0.4,
+      1.0,
+      1.25,
+      -1.0,
+      0.0,
+      1.0,
+      0.4,
+      0.4,
 
-      -0.75, 1.0, -4.0, 0.4, 1.0, 0.4,
-      -0.25, -1.0, -4.0, 0.4, 1.0, 0.4,
-      -1.25, -1.0, -4.0, 1.0, 0.4, 0.4,
+      -0.75,
+      1.0,
+      -4.0,
+      0.4,
+      1.0,
+      0.4,
+      -0.25,
+      -1.0,
+      -4.0,
+      0.4,
+      1.0,
+      0.4,
+      -1.25,
+      -1.0,
+      -4.0,
+      1.0,
+      0.4,
+      0.4,
 
-      -0.75, 1.0, -2.0, 1.0, 1.0, 0.4,
-      -0.25, -1.0, -2.0, 0.4, 1.0, 0.4,
-      -1.25, -1.0, -2.0, 1.0, 0.4, 0.4,
+      -0.75,
+      1.0,
+      -2.0,
+      1.0,
+      1.0,
+      0.4,
+      -0.25,
+      -1.0,
+      -2.0,
+      0.4,
+      1.0,
+      0.4,
+      -1.25,
+      -1.0,
+      -2.0,
+      1.0,
+      0.4,
+      0.4,
 
-      -0.75, 1.0, 0.0, 0.4, 0.4, 1.0,
-      -0.25, -1.0, 0.0, 0.4, 0.4, 1.0,
-      -1.25, -1.0, 0.0, 1.0, 0.4, 0.4,
+      -0.75,
+      1.0,
+      0.0,
+      0.4,
+      0.4,
+      1.0,
+      -0.25,
+      -1.0,
+      0.0,
+      0.4,
+      0.4,
+      1.0,
+      -1.25,
+      -1.0,
+      0.0,
+      1.0,
+      0.4,
+      0.4,
     ]);
     const n = verticesColors.length / 6;
     const VERTICESCOLORS = verticesColors.BYTES_PER_ELEMENT;
@@ -108,8 +203,22 @@ export default function() {
       return -1;
     }
 
-    gl.vertexAttribPointer(a_Position, 3, gl.FLOAT, false, VERTICESCOLORS * 6, 0);
-    gl.vertexAttribPointer(a_Color, 3, gl.FLOAT, false, VERTICESCOLORS * 6, VERTICESCOLORS * 2);
+    gl.vertexAttribPointer(
+      a_Position,
+      3,
+      gl.FLOAT,
+      false,
+      VERTICESCOLORS * 6,
+      0,
+    );
+    gl.vertexAttribPointer(
+      a_Color,
+      3,
+      gl.FLOAT,
+      false,
+      VERTICESCOLORS * 6,
+      VERTICESCOLORS * 2,
+    );
     gl.enableVertexAttribArray(a_Position);
     gl.enableVertexAttribArray(a_Color);
     return n;

@@ -35,10 +35,10 @@ export default function() {
       return;
     }
 
-
     // 缩放
     const modelMatrix = new Matrix4();
-    const ANGLE = 90.0, Tx = 0.5;
+    const ANGLE = 90.0,
+      Tx = 0.5;
     // modelMatrix.setRotate(ANGLE, 0, 0, 1);
     // modelMatrix.translate(Tx, 0, 0);
     modelMatrix.setTranslate(Tx, 0, 0);
@@ -59,7 +59,7 @@ export default function() {
     gl.drawArrays(gl.TRIANGLES, 0, n);
   }, []);
 
-  function initVertexBuffer(gl: WebGL2RenderingContext): number {
+  function initVertexBuffer(gl: WebGLRenderingContext): number {
     const vertices = new Float32Array([0, 0.2, -0.2, -0.2, 0.2, -0.2]);
     const n = 3;
 

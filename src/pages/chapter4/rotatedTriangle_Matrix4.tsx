@@ -56,7 +56,7 @@ export default function() {
     gl.drawArrays(gl.TRIANGLES, 0, n);
   }, []);
 
-  function initVertexBuffer(gl: WebGL2RenderingContext): number {
+  function initVertexBuffer(gl: WebGLRenderingContext): number {
     const vertices = new Float32Array([0, 0.5, -0.5, -0.5, 0.5, -0.5]);
     const n = 3;
 

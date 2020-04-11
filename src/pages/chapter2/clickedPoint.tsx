@@ -48,7 +48,7 @@ export default function() {
 
   function click(
     ev: MouseEvent,
-    gl: WebGL2RenderingContext,
+    gl: WebGLRenderingContext,
     canvas: HTMLElement,
     a_Position: number,
   ) {

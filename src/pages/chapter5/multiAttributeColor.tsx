@@ -50,7 +50,7 @@ export default function() {
     // gl.drawArrays(gl.LINE_LOOP, 0, n);
   });
 
-  function initVertexBuffer(gl: WebGL2RenderingContext): number {
+  function initVertexBuffer(gl: WebGLRenderingContext): number {
     const verticesSizes = new Float32Array([
       0.0,
       0.5,

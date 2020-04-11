@@ -50,7 +50,7 @@ export default function() {
     }
   });
 
-  function initVertexBuffer(gl: WebGL2RenderingContext): number {
+  function initVertexBuffer(gl: WebGLRenderingContext): number {
     const verticesTexCoords = new Float32Array([
       -0.5,
       0.5,
@@ -109,7 +109,7 @@ export default function() {
     return n;
   }
 
-  function initTextures(gl: WebGL2RenderingContext, n: number): Boolean {
+  function initTextures(gl: WebGLRenderingContext, n: number): Boolean {
     const texture: WebGLTexture | null = gl.createTexture();
     if (!texture) {
       console.log('Failed to create Texture.');
@@ -137,7 +137,7 @@ export default function() {
   }
 
   function loadTexture(
-    gl: WebGL2RenderingContext,
+    gl: WebGLRenderingContext,
     n: number,
     texture: WebGLTexture,
     u_Sampler: WebGLUniformLocation,

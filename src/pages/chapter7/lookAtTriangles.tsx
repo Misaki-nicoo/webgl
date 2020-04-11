@@ -50,9 +50,12 @@ export default function() {
     //   return;
     // }
 
-    const u_ModelViewMatrix = gl.getUniformLocation(gl.program, 'u_ModelViewMatrix');
+    const u_ModelViewMatrix = gl.getUniformLocation(
+      gl.program,
+      'u_ModelViewMatrix',
+    );
     if (!u_ModelViewMatrix) {
-      console.log("Failed to get u_ModelViewMatrix location.");
+      console.log('Failed to get u_ModelViewMatrix location.');
       return;
     }
     // const viewMatrix = new Matrix4();
@@ -63,7 +66,9 @@ export default function() {
 
     // const modelViewMatrix = viewMatrix.multiply(modelMatrix);
     const modelViewMatrix = new Matrix4();
-    modelViewMatrix.setLookAt(0.20, 0.25, 0.25, 0, 0, 0, 0, 1, 0).rotate(-10, 0, 0, 1);
+    modelViewMatrix
+      .setLookAt(0.2, 0.25, 0.25, 0, 0, 0, 0, 1, 0)
+      .rotate(-10, 0, 0, 1);
 
     // gl.uniformMatrix4fv(u_ViewMatrix, false, viewMatrix.elements);
     // gl.uniformMatrix4fv(u_ModelMatrix, false, modelMatrix.elements);
@@ -75,19 +80,64 @@ export default function() {
     gl.drawArrays(gl.TRIANGLES, 0, n);
   }, []);
 
-  function initVertexBuffer(gl: WebGL2RenderingContext): number {
+  function initVertexBuffer(gl: WebGLRenderingContext): number {
     const verticesColors = new Float32Array([
-      0.0, 0.5, -0.4, 0.4, 1.0, 0.4,
-      -0.5, -0.5, -0.4, 0.4, 1.0, 0.4,
-      0.5, -0.5, -0.4, 1.0, 0.4, 0.4,
+      0.0,
+      0.5,
+      -0.4,
+      0.4,
+      1.0,
+      0.4,
+      -0.5,
+      -0.5,
+      -0.4,
+      0.4,
+      1.0,
+      0.4,
+      0.5,
+      -0.5,
+      -0.4,
+      1.0,
+      0.4,
+      0.4,
 
-      0.5, 0.4, -0.2, 1.0, 0.4, 0.4,
-      -0.5, 0.4, -0.2, 1.0, 1.0, 0.4,
-      0, -0.6, -0.2, 1.0, 1.0, 0.4,
+      0.5,
+      0.4,
+      -0.2,
+      1.0,
+      0.4,
+      0.4,
+      -0.5,
+      0.4,
+      -0.2,
+      1.0,
+      1.0,
+      0.4,
+      0,
+      -0.6,
+      -0.2,
+      1.0,
+      1.0,
+      0.4,
 
-      0.0, 0.5, 0.0, 0.4, 0.4, 1.0,
-      -0.5, -0.5, 0.0, 0.4, 0.4, 1.0,
-      0.5, -0.5, 0.0, 1.0, 0.4, 0.4
+      0.0,
+      0.5,
+      0.0,
+      0.4,
+      0.4,
+      1.0,
+      -0.5,
+      -0.5,
+      0.0,
+      0.4,
+      0.4,
+      1.0,
+      0.5,
+      -0.5,
+      0.0,
+      1.0,
+      0.4,
+      0.4,
     ]);
     const n = 9;
     const VERTICESCOLORS = verticesColors.BYTES_PER_ELEMENT;
@@ -109,8 +159,22 @@ export default function() {
       return -1;
     }
 
-    gl.vertexAttribPointer(a_Position, 3, gl.FLOAT, false, VERTICESCOLORS * 6, 0);
-    gl.vertexAttribPointer(a_Color, 3, gl.FLOAT, false, VERTICESCOLORS * 6, VERTICESCOLORS * 2);
+    gl.vertexAttribPointer(
+      a_Position,
+      3,
+      gl.FLOAT,
+      false,
+      VERTICESCOLORS * 6,
+      0,
+    );
+    gl.vertexAttribPointer(
+      a_Color,
+      3,
+      gl.FLOAT,
+      false,
+      VERTICESCOLORS * 6,
+      VERTICESCOLORS * 2,
+    );
     gl.enableVertexAttribArray(a_Position);
     gl.enableVertexAttribArray(a_Color);
     return n;

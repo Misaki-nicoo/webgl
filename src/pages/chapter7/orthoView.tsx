@@ -4,7 +4,8 @@ import { Matrix4 } from '@/utils/matrix4';
 
 export default function() {
   const id = 'orthoView';
-  let g_near = 0.0, g_far = 0.5;
+  let g_near = 0.0,
+    g_far = 0.5;
 
   useEffect(() => {
     const VSHADER_SOURCE = `
@@ -44,32 +45,77 @@ export default function() {
 
     const u_ProjMatrix = gl.getUniformLocation(gl.program, 'u_ProjMatrix');
     if (!u_ProjMatrix) {
-      console.log("Failed to get u_ProjMatrix location.");
+      console.log('Failed to get u_ProjMatrix location.');
       return;
     }
     const projMatrix = new Matrix4();
 
     document.onkeydown = ev => {
-      keydown(ev, gl, n, u_ProjMatrix, projMatrix, nf)
+      keydown(ev, gl, n, u_ProjMatrix, projMatrix, nf);
     };
     gl.clearColor(0, 0, 0, 1.0);
 
     draw(gl, n, u_ProjMatrix, projMatrix, nf);
   }, []);
 
-  function initVertexBuffer(gl: WebGL2RenderingContext): number {
+  function initVertexBuffer(gl: WebGLRenderingContext): number {
     const verticesColors = new Float32Array([
-      0.0, 0.5, -0.4, 0.4, 1.0, 0.4,
-      -0.5, -0.5, -0.4, 0.4, 1.0, 0.4,
-      0.5, -0.5, -0.4, 1.0, 0.4, 0.4,
+      0.0,
+      0.5,
+      -0.4,
+      0.4,
+      1.0,
+      0.4,
+      -0.5,
+      -0.5,
+      -0.4,
+      0.4,
+      1.0,
+      0.4,
+      0.5,
+      -0.5,
+      -0.4,
+      1.0,
+      0.4,
+      0.4,
 
-      0.5, 0.4, -0.2, 1.0, 0.4, 0.4,
-      -0.5, 0.4, -0.2, 1.0, 1.0, 0.4,
-      0, -0.6, -0.2, 1.0, 1.0, 0.4,
+      0.5,
+      0.4,
+      -0.2,
+      1.0,
+      0.4,
+      0.4,
+      -0.5,
+      0.4,
+      -0.2,
+      1.0,
+      1.0,
+      0.4,
+      0,
+      -0.6,
+      -0.2,
+      1.0,
+      1.0,
+      0.4,
 
-      0.0, 0.5, 0.0, 0.4, 0.4, 1.0,
-      -0.5, -0.5, 0.0, 0.4, 0.4, 1.0,
-      0.5, -0.5, 0.0, 1.0, 0.4, 0.4
+      0.0,
+      0.5,
+      0.0,
+      0.4,
+      0.4,
+      1.0,
+      -0.5,
+      -0.5,
+      0.0,
+      0.4,
+      0.4,
+      1.0,
+      0.5,
+      -0.5,
+      0.0,
+      1.0,
+      0.4,
+      0.4,
     ]);
     const n = verticesColors.length / 6;
     const VERTICESCOLORS = verticesColors.BYTES_PER_ELEMENT;
@@ -91,34 +137,84 @@ export default function() {
       return -1;
     }
 
-    gl.vertexAttribPointer(a_Position, 3, gl.FLOAT, false, VERTICESCOLORS * 6, 0);
-    gl.vertexAttribPointer(a_Color, 3, gl.FLOAT, false, VERTICESCOLORS * 6, VERTICESCOLORS * 2);
+    gl.vertexAttribPointer(
+      a_Position,
+      3,
+      gl.FLOAT,
+      false,
+      VERTICESCOLORS * 6,
+      0,
+    );
+    gl.vertexAttribPointer(
+      a_Color,
+      3,
+      gl.FLOAT,
+      false,
+      VERTICESCOLORS * 6,
+      VERTICESCOLORS * 2,
+    );
     gl.enableVertexAttribArray(a_Position);
     gl.enableVertexAttribArray(a_Color);
     return n;
   }
 
-  function keydown(ev: KeyboardEvent, gl: WebGL2RenderingContext, n: number, u_viewMatrix: WebGLUniformLocation, viewMatrix: Matrix4, nf: HTMLElement) {
+  function keydown(
+    ev: KeyboardEvent,
+    gl: WebGLRenderingContext,
+    n: number,
+    u_viewMatrix: WebGLUniformLocation,
+    viewMatrix: Matrix4,
+    nf: HTMLElement,
+  ) {
     switch (ev.keyCode) {
-      case 39: g_near += 0.01; break; // right
-      case 37: g_near -= 0.01; break; // left
-      case 38: g_far += 0.01; break; // up
-      case 40: g_far -= 0.01; break; // down
+      case 39:
+        g_near += 0.01;
+        break; // right
+      case 37:
+        g_near -= 0.01;
+        break; // left
+      case 38:
+        g_far += 0.01;
+        break; // up
+      case 40:
+        g_far -= 0.01;
+        break; // down
     }
-    draw(gl, n, u_viewMatrix, viewMatrix, nf)
+    draw(gl, n, u_viewMatrix, viewMatrix, nf);
   }
 
-  function draw(gl: WebGL2RenderingContext, n: number, u_viewMatrix: WebGLUniformLocation, projMatrix: Matrix4, nf: HTMLElement) {
+  function draw(
+    gl: WebGLRenderingContext,
+    n: number,
+    u_viewMatrix: WebGLUniformLocation,
+    projMatrix: Matrix4,
+    nf: HTMLElement,
+  ) {
     projMatrix.setOrtho(-1, 1, -1, 1, g_near, g_far);
     gl.uniformMatrix4fv(u_viewMatrix, false, projMatrix.elements);
 
     gl.clear(gl.COLOR_BUFFER_BIT);
     gl.drawArrays(gl.TRIANGLES, 0, n);
-    nf.innerHTML = `near: ${Math.round(g_near * 100) / 100}, far: ${Math.round(g_far * 100) / 100}`
+    nf.innerHTML = `near: ${Math.round(g_near * 100) / 100}, far: ${Math.round(
+      g_far * 100,
+    ) / 100}`;
   }
 
-  return <div style={{width: '100%', height: '100%', position: 'relative'}}>
-    <canvas id={id} style={{ width: '100%', height: '100%' }} />
-    <p id={'nearFar'} style={{position: 'absolute', top: 10, width: '100%', padding: 10, color: '#fff'}}>near far value:</p>
-  </div>
+  return (
+    <div style={{ width: '100%', height: '100%', position: 'relative' }}>
+      <canvas id={id} style={{ width: '100%', height: '100%' }} />
+      <p
+        id={'nearFar'}
+        style={{
+          position: 'absolute',
+          top: 10,
+          width: '100%',
+          padding: 10,
+          color: '#fff',
+        }}
+      >
+        near far value:
+      </p>
+    </div>
+  );
 }

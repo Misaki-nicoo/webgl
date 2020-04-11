@@ -4,7 +4,6 @@ import { initShaders } from '@/utils/webglUtils';
 export default function() {
   const id = 'helloTriangle';
 
-
   useEffect(() => {
     const VSHADER_SOURCE = `
     attribute vec4 a_Position;
@@ -44,9 +43,18 @@ export default function() {
     gl.drawArrays(gl.TRIANGLE_FAN, 0, n);
   }, []);
 
-  function initVertexBuffer(gl: WebGL2RenderingContext): number {
+  function initVertexBuffer(gl: WebGLRenderingContext): number {
     // const vertices = new Float32Array([0, 0.5, -0.5, -0.5, 0.5, -0.5]);
-    const vertices = new Float32Array([-0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5]);
+    const vertices = new Float32Array([
+      -0.5,
+      0.5,
+      -0.5,
+      -0.5,
+      0.5,
+      0.5,
+      0.5,
+      -0.5,
+    ]);
     // const n = 3;
     const n = 4;
 

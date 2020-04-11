@@ -52,7 +52,9 @@ export default function() {
     // 平移的变量
     // const Tx = 0.5, Ty = 0.5, Tz = 0.0;
     // 缩放的变量, 纵坐标拉长
-    const Sx = 1.0, Sy = 1.5, Sz = 1.0;
+    const Sx = 1.0,
+      Sy = 1.5,
+      Sz = 1.0;
 
     // webGL 与 openGL一样，矩阵元素是按列主序存储在数组中的, 如以下 3X3 矩阵
     // [ 1, 2, 3, ]
@@ -77,10 +79,22 @@ export default function() {
     //
     // 缩放
     const xformMatrix = new Float32Array([
-      Sx, 0.0, 0.0, 0.0,
-      0.0, Sy, 0.0, 0.0,
-      0.0, 0.0, Sz, 0.0,
-      0.0, 0.0, 0.0, 1.0
+      Sx,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      Sy,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      Sz,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
     ]);
 
     // const u_CosB = gl.getUniformLocation(gl.program, 'u_CosB');
@@ -109,7 +123,7 @@ export default function() {
     gl.drawArrays(gl.TRIANGLES, 0, n);
   }, []);
 
-  function initVertexBuffer(gl: WebGL2RenderingContext): number {
+  function initVertexBuffer(gl: WebGLRenderingContext): number {
     const vertices = new Float32Array([0, 0.5, -0.5, -0.5, 0.5, -0.5]);
     const n = 3;
 

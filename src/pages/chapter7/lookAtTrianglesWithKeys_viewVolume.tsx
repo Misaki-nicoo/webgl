@@ -4,7 +4,9 @@ import { Matrix4 } from '@/utils/matrix4';
 
 export default function() {
   const id = 'lookAtTrianglesWithKeys_viewVolume';
-  let g_eyeX = 0.20, g_eyeY = 0.25, g_eyeZ = 0.25;
+  let g_eyeX = 0.2,
+    g_eyeY = 0.25,
+    g_eyeZ = 0.25;
 
   useEffect(() => {
     const VSHADER_SOURCE = `
@@ -45,13 +47,13 @@ export default function() {
     const u_ViewMatrix = gl.getUniformLocation(gl.program, 'u_ViewMatrix');
     const u_ProjMatrix = gl.getUniformLocation(gl.program, 'u_ProjMatrix');
     if (!u_ViewMatrix || !u_ProjMatrix) {
-      console.log("Failed to get uniform location.");
+      console.log('Failed to get uniform location.');
       return;
     }
     const viewMatrix = new Matrix4();
 
     document.onkeydown = ev => {
-      keydown(ev, gl, n, u_ViewMatrix, viewMatrix)
+      keydown(ev, gl, n, u_ViewMatrix, viewMatrix);
     };
     gl.clearColor(0, 0, 0, 1.0);
 
@@ -63,19 +65,64 @@ export default function() {
     draw(gl, n, u_ViewMatrix, viewMatrix);
   }, []);
 
-  function initVertexBuffer(gl: WebGL2RenderingContext): number {
+  function initVertexBuffer(gl: WebGLRenderingContext): number {
     const verticesColors = new Float32Array([
-      0.0, 0.5, -0.4, 0.4, 1.0, 0.4,
-      -0.5, -0.5, -0.4, 0.4, 1.0, 0.4,
-      0.5, -0.5, -0.4, 1.0, 0.4, 0.4,
+      0.0,
+      0.5,
+      -0.4,
+      0.4,
+      1.0,
+      0.4,
+      -0.5,
+      -0.5,
+      -0.4,
+      0.4,
+      1.0,
+      0.4,
+      0.5,
+      -0.5,
+      -0.4,
+      1.0,
+      0.4,
+      0.4,
 
-      0.5, 0.4, -0.2, 1.0, 0.4, 0.4,
-      -0.5, 0.4, -0.2, 1.0, 1.0, 0.4,
-      0, -0.6, -0.2, 1.0, 1.0, 0.4,
+      0.5,
+      0.4,
+      -0.2,
+      1.0,
+      0.4,
+      0.4,
+      -0.5,
+      0.4,
+      -0.2,
+      1.0,
+      1.0,
+      0.4,
+      0,
+      -0.6,
+      -0.2,
+      1.0,
+      1.0,
+      0.4,
 
-      0.0, 0.5, 0.0, 0.4, 0.4, 1.0,
-      -0.5, -0.5, 0.0, 0.4, 0.4, 1.0,
-      0.5, -0.5, 0.0, 1.0, 0.4, 0.4
+      0.0,
+      0.5,
+      0.0,
+      0.4,
+      0.4,
+      1.0,
+      -0.5,
+      -0.5,
+      0.0,
+      0.4,
+      0.4,
+      1.0,
+      0.5,
+      -0.5,
+      0.0,
+      1.0,
+      0.4,
+      0.4,
     ]);
     const n = 9;
     const VERTICESCOLORS = verticesColors.BYTES_PER_ELEMENT;
@@ -97,25 +144,50 @@ export default function() {
       return -1;
     }
 
-    gl.vertexAttribPointer(a_Position, 3, gl.FLOAT, false, VERTICESCOLORS * 6, 0);
-    gl.vertexAttribPointer(a_Color, 3, gl.FLOAT, false, VERTICESCOLORS * 6, VERTICESCOLORS * 2);
+    gl.vertexAttribPointer(
+      a_Position,
+      3,
+      gl.FLOAT,
+      false,
+      VERTICESCOLORS * 6,
+      0,
+    );
+    gl.vertexAttribPointer(
+      a_Color,
+      3,
+      gl.FLOAT,
+      false,
+      VERTICESCOLORS * 6,
+      VERTICESCOLORS * 2,
+    );
     gl.enableVertexAttribArray(a_Position);
     gl.enableVertexAttribArray(a_Color);
     return n;
   }
 
-  function keydown(ev: KeyboardEvent, gl: WebGL2RenderingContext, n: number, u_viewMatrix: WebGLUniformLocation, viewMatrix: Matrix4) {
+  function keydown(
+    ev: KeyboardEvent,
+    gl: WebGLRenderingContext,
+    n: number,
+    u_viewMatrix: WebGLUniformLocation,
+    viewMatrix: Matrix4,
+  ) {
     if (ev.keyCode == 39) {
-      g_eyeX += 0.01
+      g_eyeX += 0.01;
     } else if (ev.keyCode == 37) {
-      g_eyeX -= 0.01
+      g_eyeX -= 0.01;
     } else {
       return;
     }
-    draw(gl, n, u_viewMatrix, viewMatrix)
+    draw(gl, n, u_viewMatrix, viewMatrix);
   }
 
-  function draw(gl: WebGL2RenderingContext, n: number, u_viewMatrix: WebGLUniformLocation, viewMatrix: Matrix4) {
+  function draw(
+    gl: WebGLRenderingContext,
+    n: number,
+    u_viewMatrix: WebGLUniformLocation,
+    viewMatrix: Matrix4,
+  ) {
     viewMatrix.setLookAt(g_eyeX, g_eyeY, g_eyeZ, 0, 0, 0, 0, 0, 1);
     gl.uniformMatrix4fv(u_viewMatrix, false, viewMatrix.elements);
 

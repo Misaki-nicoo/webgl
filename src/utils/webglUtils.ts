@@ -1,5 +1,5 @@
 export function initShaders(
-  gl: WebGL2RenderingContext,
+  gl: WebGLRenderingContext,
   vsSource: string,
   fsSource: string,
 ): boolean {
@@ -16,7 +16,7 @@ export function initShaders(
 }
 
 function createProgram(
-  gl: WebGL2RenderingContext,
+  gl: WebGLRenderingContext,
   vsSource: string,
   fsSource: string,
 ): WebGLProgram | null {
@@ -49,7 +49,7 @@ function createProgram(
 }
 
 function loadShader(
-  gl: WebGL2RenderingContext,
+  gl: WebGLRenderingContext,
   type: number,
   source: string,
 ): WebGLShader | null {
