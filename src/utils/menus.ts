@@ -27,8 +27,14 @@ export const menus: IMenu[] = [
     path: '/chapter4',
     title: '高级变换与动画基础',
     children: [
-      { path: '/chapter4/rotatedTriangle_Matrix4', title: '使用矩阵函数变换三角形' },
-      { path: '/chapter4/rotatedTranslatedTriangle', title: '使用矩阵函数平移后旋转三角形' },
+      {
+        path: '/chapter4/rotatedTriangle_Matrix4',
+        title: '使用矩阵函数变换三角形',
+      },
+      {
+        path: '/chapter4/rotatedTranslatedTriangle',
+        title: '使用矩阵函数平移后旋转三角形',
+      },
       { path: '/chapter4/rotatingTriangle', title: '动画基础 - 旋转三角形' },
     ],
   },
@@ -37,8 +43,14 @@ export const menus: IMenu[] = [
     title: '颜色与纹理',
     children: [
       { path: '/chapter5/multiAttributeSize', title: '不同尺寸的点' },
-      { path: '/chapter5/multiAttributeSize_interleaved', title: '将非坐标数据传入顶点着色器' },
-      { path: '/chapter5/multiAttributeColor', title: '修改颜色 -> 彩色三角形' },
+      {
+        path: '/chapter5/multiAttributeSize_interleaved',
+        title: '将非坐标数据传入顶点着色器',
+      },
+      {
+        path: '/chapter5/multiAttributeColor',
+        title: '修改颜色 -> 彩色三角形',
+      },
       { path: '/chapter5/triangle_FragColor', title: '计算三角形颜色' },
       { path: '/chapter5/texturedQuad', title: '图像纹理' },
       { path: '/chapter5/texturedQuad_Repeat', title: '图像纹理重复填充' },
@@ -52,10 +64,14 @@ export const menus: IMenu[] = [
       { path: '/chapter7/lookAtTriangles', title: '视点和视线' },
       { path: '/chapter7/lookAtTrianglesWithKeys', title: '利用键盘改变视点' },
       { path: '/chapter7/orthoView', title: '正射投影的可视范围' },
-      { path: '/chapter7/lookAtTrianglesWithKeys_viewVolume', title: '随视点变化的正射投影' },
+      {
+        path: '/chapter7/lookAtTrianglesWithKeys_viewVolume',
+        title: '随视点变化的正射投影',
+      },
       { path: '/chapter7/perspectiveView', title: '透视投影的可视空间' },
       { path: '/chapter7/perspectiveView_mvp', title: '平移绘制透视投影' },
       { path: '/chapter7/helloCubes', title: '立方体' },
+      { path: '/chapter7/coloredCube', title: '单面颜色的立方体' },
     ],
   },
 ];
