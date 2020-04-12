@@ -74,4 +74,9 @@ export const menus: IMenu[] = [
       { path: '/chapter7/coloredCube', title: '单面颜色的立方体' },
     ],
   },
+  {
+    path: '/chapter8',
+    title: '光照',
+    children: [{ path: '/chapter8/lightedCube', title: '光照原理' }],
+  },
 ];
