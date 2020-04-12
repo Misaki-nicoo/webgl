@@ -77,6 +77,12 @@ export const menus: IMenu[] = [
   {
     path: '/chapter8',
     title: '光照',
-    children: [{ path: '/chapter8/lightedCube', title: '光照原理' }],
+    children: [
+      { path: '/chapter8/lightedCube', title: '光照原理' },
+      {
+        path: '/chapter8/lightedTranslatedRotatedCube',
+        title: '运动物体的光照效果',
+      },
+    ],
   },
 ];

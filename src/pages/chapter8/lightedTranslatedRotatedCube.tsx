@@ -3,7 +3,7 @@ import { initShaders } from '@/utils/webglUtils';
 import { Matrix4, Vector3 } from '@/utils/matrix4';
 
 export default function() {
-  const id = 'coloredCube';
+  const id = 'lightedTranslatedRotatedCube';
 
   useEffect(() => {
     const VSHADER_SOURCE = `
@@ -11,6 +11,7 @@ export default function() {
     attribute vec4 a_Color;
     attribute vec4 a_Normal; // 法向量
     uniform mat4 u_MvpMatrix; // 计算后的矩阵
+    uniform mat4 u_NormalMatrix; // 用来变换法向量的矩阵
     uniform vec3 u_LightColor; // 光线颜色
     uniform vec3 u_LightDirection; // 光线位置/方向，归一化的世界坐标
     uniform vec3 u_AmbientLight; // 环境光颜色
@@ -19,7 +20,9 @@ export default function() {
     void main() {
       gl_Position = u_MvpMatrix * a_Position;
       // 对法向量进行归一化
-      vec3 normal = normalize(vec3(a_Normal));
+      // vec3 normal = normalize(vec3(a_Normal));
+      // 对法向量进行变换
+      vec3 normal = normalize(vec3(u_NormalMatrix * a_Normal));
       // 计算光线方向和法向量的点积, 求得光线方向与法向量的夹角余弦值
       // 计算公式n · l = |n| * |l| * cosθ
       // 其中由于n， l进行归一化处理 ，所以|n|,|l|的值都为1， 即cosθ = n · l
@@ -62,7 +65,14 @@ export default function() {
       'u_LightDirection',
     );
     const u_AmbientLight = gl.getUniformLocation(gl.program, 'u_AmbientLight');
-    if (!u_MvpMatrix || !u_LightColor || !u_LightDirection || !u_AmbientLight) {
+    const u_NormalMatrix = gl.getUniformLocation(gl.program, 'u_NormalMatrix');
+    if (
+      !u_MvpMatrix ||
+      !u_LightColor ||
+      !u_LightDirection ||
+      !u_AmbientLight ||
+      !u_NormalMatrix
+    ) {
       console.log('Failed to get uniform location.');
       return;
     }
@@ -78,7 +88,8 @@ export default function() {
     gl.uniform3f(u_AmbientLight, 0.2, 0.2, 0.2);
 
     const modelMatrix = new Matrix4();
-    modelMatrix.setTranslate(0.75, 0.0, 0.0);
+    modelMatrix.setTranslate(0, 1, 0);
+    modelMatrix.rotate(90, 0, 0, 1);
 
     gl.clearColor(0, 0, 0, 1.0);
     // 开启隐藏面消除
@@ -93,12 +104,16 @@ export default function() {
     );
     mvpMatrix.lookAt(3, 3, 7, 0, 0, 0, 0, 1, 0);
     mvpMatrix.multiply(modelMatrix);
-
     gl.uniformMatrix4fv(u_MvpMatrix, false, mvpMatrix.elements);
+
+    const normalMatrix = new Matrix4();
+    normalMatrix.setInverseOf(modelMatrix);
+    normalMatrix.transpose();
+    gl.uniformMatrix4fv(u_NormalMatrix, true, normalMatrix.elements);
 
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
     gl.drawElements(gl.TRIANGLES, n, gl.UNSIGNED_BYTE, 0);
-  }, []);
+  });
 
   function initVertexBuffer(gl: WebGLRenderingContext): number {
     const vertices = new Float32Array([
