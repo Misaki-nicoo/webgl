@@ -382,6 +382,7 @@ export default function() {
     gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
     gl.bufferData(gl.ARRAY_BUFFER, data, gl.STATIC_DRAW);
 
+    // @ts-ignore
     const a_attribute = gl.getAttribLocation(gl.program, attribute);
     gl.vertexAttribPointer(a_attribute, 3, gl.FLOAT, false, 0, 0);
     gl.enableVertexAttribArray(a_attribute);

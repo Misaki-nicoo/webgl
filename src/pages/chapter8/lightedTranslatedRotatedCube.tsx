@@ -78,12 +78,12 @@ export default function() {
     }
 
     // 光线颜色
-    gl?.uniform3f(u_LightColor, 1, 1, 1);
+    gl.uniform3f(u_LightColor, 1, 1, 1);
     // 光线方向
     const lightDirection = new Vector3([0.5, 3.0, 4.0]);
     // 归一化
     lightDirection.normalize();
-    gl?.uniform3fv(u_LightDirection, lightDirection.elements);
+    gl.uniform3fv(u_LightDirection, lightDirection.elements);
     // 环境光
     gl.uniform3f(u_AmbientLight, 0.2, 0.2, 0.2);
 
@@ -109,7 +109,7 @@ export default function() {
     const normalMatrix = new Matrix4();
     normalMatrix.setInverseOf(modelMatrix);
     normalMatrix.transpose();
-    gl.uniformMatrix4fv(u_NormalMatrix, true, normalMatrix.elements);
+    gl.uniformMatrix4fv(u_NormalMatrix, false, normalMatrix.elements);
 
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
     gl.drawElements(gl.TRIANGLES, n, gl.UNSIGNED_BYTE, 0);
@@ -397,6 +397,7 @@ export default function() {
     gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
     gl.bufferData(gl.ARRAY_BUFFER, data, gl.STATIC_DRAW);
 
+    // @ts-ignore
     const a_attribute = gl.getAttribLocation(gl.program, attribute);
     gl.vertexAttribPointer(a_attribute, 3, gl.FLOAT, false, 0, 0);
     gl.enableVertexAttribArray(a_attribute);
