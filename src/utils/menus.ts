@@ -87,4 +87,11 @@ export const menus: IMenu[] = [
       { path: '/chapter8/pointLightedCube_animation', title: '运动中的点光源光照' },
     ],
   },
+  {
+    path: '/chapter9',
+    title: '层次模型',
+    children: [
+      { path: '/chapter9/pointModel', title: '多个简单模型组成的复杂模型' },
+    ],
+  },
 ];
