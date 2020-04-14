@@ -83,6 +83,8 @@ export const menus: IMenu[] = [
         path: '/chapter8/lightedTranslatedRotatedCube',
         title: '运动物体的光照效果',
       },
+      { path: '/chapter8/pointLightedCube', title: '点光源光照' },
+      { path: '/chapter8/pointLightedCube_animation', title: '运动中的点光源光照' },
     ],
   },
 ];
