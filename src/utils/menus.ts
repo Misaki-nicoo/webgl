@@ -91,7 +91,9 @@ export const menus: IMenu[] = [
     path: '/chapter9',
     title: '层次模型',
     children: [
-      { path: '/chapter9/pointModel', title: '多个简单模型组成的复杂模型' },
+      { path: '/chapter9/pointModel', title: '单节点模型' },
+      { path: '/chapter9/multiJointModel', title: '多节点模型' },
+      { path: '/chapter9/multiJointModel_segment', title: '多节点模型绘制部件' },
     ],
   },
 ];
