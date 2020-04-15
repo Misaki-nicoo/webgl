@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { initShaders } from '@/utils/webglUtils';
-import { Matrix4 } from '@/utils/matrix4';
+import { Matrix4, Vector3 } from '@/utils/matrix4';
 
 export default function() {
   const id = 'jointModel';
@@ -137,12 +137,10 @@ export default function() {
     u_MvpMatrix: WebGLUniformLocation,
     u_NormalMatrix: WebGLUniformLocation,
   ) {
-    g_mvpMatrix.set(viewProjMatrix);
-    g_mvpMatrix.multiply(g_modelMatrix);
-    gl.uniformMatrix4fv(u_MvpMatrix, false, g_modelMatrix.elements);
+    g_mvpMatrix.set(viewProjMatrix)?.multiply(g_modelMatrix);
+    gl.uniformMatrix4fv(u_MvpMatrix, false, g_mvpMatrix.elements);
 
-    g_normalMatrix.setInverseOf(g_modelMatrix);
-    g_normalMatrix.transpose();
+    g_normalMatrix.setInverseOf(g_modelMatrix).transpose();
     gl.uniformMatrix4fv(u_NormalMatrix, false, g_normalMatrix.elements);
 
     gl.drawElements(gl.TRIANGLES, n, gl.UNSIGNED_BYTE, 0);
@@ -161,86 +159,21 @@ export default function() {
     }
 
     gl.uniform3f(u_LightColor, 1.0, 1.0, 1.0);
-    gl.uniform3f(u_LightDirection, 3.0, 4.0, 5.0);
+    gl.uniform3fv(u_LightDirection, new Vector3([0.5, 3.0, 4.0]).normalize().elements);
     gl.uniform3f(u_AmbientLight, 0.2, 0.2, 0.2);
     return true;
   }
 
   function initVertexBuffer(gl: WebGLRenderingContext): number {
     const vertices = new Float32Array([
-      1.0,
-      1.0,
-      1.0,
-      -1.0,
-      1.0,
-      1.0,
-      -1.0,
-      -1.0,
-      1.0,
-      1.0,
-      -1.0,
-      1.0, //front面 v0-4
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      -1.0,
-      1.0,
-      1.0,
-      -1.0,
-      -1.0,
-      1.0,
-      1.0,
-      -1.0, //right v0345
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      -1.0,
-      -1.0,
-      1.0,
-      -1.0,
-      -1.0,
-      1.0,
-      1.0, //up v0561
-      -1.0,
-      1.0,
-      1.0,
-      -1.0,
-      -1.0,
-      1.0,
-      -1.0,
-      -1.0,
-      -1.0,
-      -1.0,
-      1.0,
-      -1.0, //left
-      -1.0,
-      -1.0,
-      1.0,
-      1.0,
-      -1.0,
-      1.0,
-      1.0,
-      -1.0,
-      -1.0,
-      -1.0,
-      -1.0,
-      -1.0, //down
-      1.0,
-      -1.0,
-      -1.0,
-      1.0,
-      1.0,
-      -1.0,
-      -1.0,
-      1.0,
-      -1.0,
-      -1.0,
-      -1.0,
-      -1.0, //back
+      1.5, 10.0, 1.5, -1.5, 10.0, 1.5, -1.5,  0.0, 1.5,  1.5,  0.0, 1.5, // v0-v1-v2-v3 front
+      1.5, 10.0, 1.5,  1.5,  0.0, 1.5,  1.5,  0.0,-1.5,  1.5, 10.0,-1.5, // v0-v3-v4-v5 right
+      1.5, 10.0, 1.5,  1.5, 10.0,-1.5, -1.5, 10.0,-1.5, -1.5, 10.0, 1.5, // v0-v5-v6-v1 up
+      -1.5, 10.0, 1.5, -1.5, 10.0,-1.5, -1.5,  0.0,-1.5, -1.5,  0.0, 1.5, // v1-v6-v7-v2 left
+      -1.5,  0.0,-1.5,  1.5,  0.0,-1.5,  1.5,  0.0, 1.5, -1.5,  0.0, 1.5, // v7-v4-v3-v2 down
+      1.5,  0.0,-1.5, -1.5,  0.0,-1.5, -1.5, 10.0,-1.5,  1.5, 10.0,-1.5  // v4-v7-v6-v5 back
     ]);
+
     //
     // const colors = new Float32Array([
     //   1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, //front
